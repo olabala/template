@@ -1,0 +1,6 @@
+{
+  "name": "Template",
+  "version": "3.0.0-beta",
+  "description": "a Boilerplate for [mobile] SPAs use vue, vuex, vue-router",
+  "license": "MIT"
+}

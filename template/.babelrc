@@ -1,0 +1,38 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        "es2015",
+        "stage-0"
+      ],
+      "plugins": [
+        "add-module-exports",
+        "dynamic-import-webpack"
+      ],
+      "comments": false
+    },
+    "test": {
+      "presets": [
+        "es2015",
+        "stage-0"
+      ],
+      "plugins": [
+        "add-module-exports",
+        "dynamic-import-webpack",
+        "istanbul"
+      ],
+      "comments": false
+    },
+    "production": {
+      "presets": [
+        "es2015",
+        "stage-0"
+      ],
+      "plugins": [
+        "add-module-exports",
+        "dynamic-import-webpack"
+      ],
+      "comments": false
+    }
+  }
+}
