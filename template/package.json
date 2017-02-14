@@ -23,11 +23,9 @@
     "build": "npm run test && npm run clean && npm run compile"
   },
   "dependencies": {
+    "core-js": "^2.4.1",
     "nuo": "^1.0.0",
-    "plato-components": "^3.0.0-beta.7",
-    "plato-directives": "^3.0.0-beta.6",
-    "plato-system": "^3.0.0-beta.5",
-    "plato-util": "^3.0.0-beta.4",
+    "platojs": "*",
     {{#i18n}}
     "string-template": "^1.0.0",
     {{/i18n}}
@@ -50,7 +48,6 @@
     "chai": "^3.5.0",
     "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.0.1",
-    "core-js": "^2.4.1",
     "cross-env": "^3.1.4",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.26.1",
