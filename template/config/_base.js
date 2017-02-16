@@ -33,7 +33,6 @@ const config = {
     'vuex-actions',
     {{#persist}}
     'vuex-localstorage',
-    'vuex-persistedstate',
     {{/persist}}
     'vuex-router-sync'
   ]
