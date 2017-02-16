@@ -8,7 +8,6 @@
   "scripts": {
     "gfw": "npm i cross-env && cross-env PHANTOMJS_CDNURL=http://npm.taobao.org/mirrors/phantomjs npm install -r https://registry.npm.taobao.org",
     "start": "npm run build && serve ./dist",
-    "mock": "cross-env NODE_ENV=development DEBUG=PLATO:* json-server --watch --port 3001 ./mock/db.json",
     "dev": "cross-env NODE_ENV=development DEBUG=PLATO:* webpack-dev-server --progress",
     "e2e": "cross-env NODE_ENV=test DEBUG=PLATO:* node ./test/e2e/runner.js",
     "e2e:dev": "cross-env NODE_ENV=test DEBUG=PLATO:* nodemon ./test/e2e/runner.js",
@@ -58,7 +57,6 @@
     "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.28.0",
-    "json-server": "^0.9.5",
     "karma": "^1.4.1",
     "karma-coverage": "^1.1.1",
     "karma-es6-shim": "^1.0.0",

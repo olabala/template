@@ -8,9 +8,6 @@
 # install dependencies
 npm install
 
-# start a mocking server at localhost:3001
-npm run mock
-
 # serve with hot reload at localhost:3000
 npm run dev
 
@@ -26,9 +23,3 @@ npm run build
 # serve dist, like production
 npm start
 ```
-
-## Appendix
-
-- [Troubleshooting](doc/TROUBLESHOOTING.md)
-- [Style Guide](doc/STYLEGUIDE.md)
-- [Developing Guide](doc/DEVELOPING.md)
