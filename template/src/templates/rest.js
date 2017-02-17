@@ -1,7 +1,7 @@
 import { createAction, handleAction, $inject } from 'vuex-actions'
-import Normalizer from 'util/normalizer'
-import { get, post, patch, put, del } from 'util/request'
-import merge from 'util/cheap-merge'
+import Normalizer from 'platojs/util/normalizer'
+import { get, post, patch, put, del } from 'platojs/util/request'
+import merge from 'platojs/util/cheap-merge'
 
 /**
  * Template for standard REST

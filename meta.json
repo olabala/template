@@ -44,7 +44,7 @@
     },
     "persist": {
       "type": "confirm",
-      "message": "Use vuex-persistedstate?",
+      "message": "Use persistence?",
       "default": true
     },
     "core": {
