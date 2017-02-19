@@ -25,17 +25,7 @@ const config = {
   compiler_devtool: 'source-map',
   compiler_hash_type: 'hash',
   compiler_html_minify: false,
-  compiler_public_path: '',
-  compiler_vendor: [
-    'vue',
-    'vue-router',
-    'vuex',
-    'vuex-actions',
-    {{#persist}}
-    'vuex-localstorage',
-    {{/persist}}
-    'vuex-router-sync'
-  ]
+  compiler_public_path: ''
 }
 
 // ------------------------------------

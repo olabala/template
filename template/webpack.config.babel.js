@@ -42,7 +42,18 @@ const webpackConfig = {
       // 加载 polyfills
       paths.src('polyfills/index.js'),
       paths.src('index.js')],
-    vendor: config.compiler_vendor
+    plato: [
+      // from platojs
+      'vue',
+      'vue-router',
+      'vuex',
+      'vuex-router-sync',
+      // from local deps
+      {{#persist}}
+      'vuex-localstorage',
+      {{/persist}}
+      'vuex-actions'
+    ]
   },
   output: {
     path: paths.dist(),
@@ -71,8 +82,8 @@ const webpackConfig = {
         options: {
           loaders: {
             css: __PROD__ ? ExtractTextPlugin.extract({
-              loader: 'css-loader?sourceMap',
-              fallbackLoader: 'vue-style-loader'
+              use: 'css-loader?sourceMap',
+              fallback: 'vue-style-loader'
             }) : 'vue-style-loader!css-loader?sourceMap',
             js: 'babel-loader'
           }
@@ -257,8 +268,7 @@ if (!__TEST__) {
       {{/mobile}}
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: '[name].[hash].js'
+      names: ['plato']
     })
   )
 }
