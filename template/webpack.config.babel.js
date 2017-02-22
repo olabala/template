@@ -5,6 +5,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
 import config, { paths } from './config'
 
+const pkg = require('./package.json')
+
 const { __DEV__, __PROD__, __TEST__ } = config.globals
 const debug = require('debug')('PLATO:webpack')
 
@@ -122,7 +124,7 @@ const webpackConfig = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: paths.src('index.ejs'),
-      title: `${config.pkg.name} - ${config.pkg.description}`,
+      title: `${pkg.name} - ${pkg.description}`,
       hash: false,
       inject: true,
       minify: {
@@ -144,6 +146,13 @@ const webpackConfig = {
 
 const vueLoaderOptions = {
   postcss: pack => {
+    // see: https://github.com/ai/browserslist#queries
+    {{#mobile}}
+    const browsers = 'Android >= 4, iOS >= 7'
+    {{else}}
+    const browsers = 'IE >= 9, Chrome >= 50'
+    {{/mobile}}
+
     return [
       require('postcss-import')({
         path: paths.src('application/styles')
@@ -152,18 +161,17 @@ const vueLoaderOptions = {
         basePath: paths.src('static')
       }),
       require('postcss-cssnext')({
-        // see: https://github.com/ai/browserslist#queries
-        {{#mobile}}
-        browsers: 'Android >= 4, iOS >= 7',
-        {{else}}
-        browsers: 'IE >= 9, Chrome >= 50',
-        {{/mobile}}
+        browsers,
         features: {
           customProperties: {
             variables: require(paths.src('application/styles/variables'))
-          }
+          },
+          // 禁用 autoprefixer，在 postcss-rtl 后单独引入
+          // 否则会跟 postcss-rtl 冲突
+          autoprefixer: false
         }
       }),
+      // 如果不需要 flexible，请移除
       require('postcss-flexible')({
         {{#mobile}}
         {{else}}
@@ -189,7 +197,12 @@ const vueLoaderOptions = {
           return `${prefix} ${selector}`
         }
       }),
+      {{else}}
+      // 如果需要 postcss-rtl，请在此处定义
       {{/i18n}}
+      require('autoprefixer')({
+        browsers
+      }),
       require('postcss-browser-reporter')(),
       require('postcss-reporter')()
     ]

@@ -1,9 +1,9 @@
 import { resolve } from 'path'
 
-const config = {
-  env: process.env.NODE_ENV || 'development',
+const NODE_ENV = process.env.NODE_ENV || 'development'
 
-  pkg: require('../package.json'),
+const config = {
+  env: NODE_ENV,
 
   // ----------------------------------
   // Project Structure
@@ -25,19 +25,17 @@ const config = {
   compiler_devtool: 'source-map',
   compiler_hash_type: 'hash',
   compiler_html_minify: false,
-  compiler_public_path: ''
-}
+  compiler_public_path: '',
 
-// ------------------------------------
-// Environment
-// ------------------------------------
-config.globals = {
-  'process.env': {
-    NODE_ENV: JSON.stringify(config.env)
-  },
-  __DEV__: config.env === 'development',
-  __PROD__: config.env === 'production',
-  __TEST__: config.env === 'test'
+  // ------------------------------------
+  // Environment
+  // ------------------------------------
+  globals: {
+    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+    __DEV__: NODE_ENV === 'development',
+    __PROD__: NODE_ENV === 'production',
+    __TEST__: NODE_ENV === 'test'
+  }
 }
 
 // ------------------------------------
