@@ -32,7 +32,7 @@
     {{#persist}}
     "vuex-localstorage": "^1.0.0",
     {{/persist}}
-    "whatwg-fetch": "^2.0.2"
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "plato-dev-dependencies": "latest"
