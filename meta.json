@@ -60,5 +60,5 @@
     "src/modules/core/**/*": "core"
   },
   "skipInterpolation": "!{README.md,package.json,npm-shrinkwrap.json,**/*.js}",
-  "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm run dev\n\nDemostrations can be found at http://plato.crossjs.com/#/demos"
+  "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm run dev\n\nDemostrations can be found at http://plato.crossjs.com/#/demo"
 }
