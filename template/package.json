@@ -6,6 +6,8 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
+    "init": "npm install",
+    "lock": "npm shrinkwrap",
     "start": "npm run build && serve ./dist",
     "dev": "cross-env NODE_ENV=development DEBUG=PLATO:* webpack-dev-server --progress",
     "e2e": "cross-env NODE_ENV=test DEBUG=PLATO:* node ./test/e2e/runner.js",

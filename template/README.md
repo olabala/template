@@ -5,8 +5,11 @@
 ## Usage
 
 ```bash
-# install dependencies
-npm install
+# install dependencies with mirrors
+npm run init
+
+# lock dependencies version
+npm run lock
 
 # serve with hot reload at localhost:3000
 npm run dev
