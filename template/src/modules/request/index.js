@@ -1,24 +1,37 @@
-import { configure } from 'platojs/util/request'
+import { watch } from 'platojs/system'
+import { configure, intercept } from 'platojs/util/request'
 
 /**
  * 修改 request 方法的全局配置
  */
 
-export default ({ name, version }, options = {}) => {
+export default ({ Vue, store, name, version }, options = {}) => {
   options = { scope: 'request', ...options }
 
-  // 直接修改，不需要注册，不需要在回调时再修改
+  // 全局，在请求头部加入自定义字段
   configure({
-    // configure 除了 mutator 还支持其它参数
-    // 其中 mutator 特殊处理，多次添加则会多次执行，
-    // 其它参数直接 cheap-merge 到默认参数
-    mutator (options) {
-      // 在请求头部加入自定义字段
-      // 可以用于添加 Authorization 等
-      options.headers['Who-Am-I'] = `${name}@${version}`
-      return options
+    headers: {
+      'Who-Am-I': `${name}@${version}`
     }
   })
 
-  // 不返回任何值
+  // 如果当前浏览器不支持 CORS，则使用代理
+  if (!('withCredentials' in new XMLHttpRequest())) {
+    intercept({
+      request: [({ req }) => {
+        // 如果请求是跨域，则使用本地代理
+        // blablabla...
+        return { req }
+      }]
+    })
+  }
+
+  return () => {
+    // 修改全局 Accept-Language
+    watch('i18n/lang', value => configure({
+      headers: {
+        'Accept-Language': value
+      }
+    }))
+  }
 }
