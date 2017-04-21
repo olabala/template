@@ -8,6 +8,7 @@
   "scripts": {
     "init": "npm install",
     "lock": "npm shrinkwrap",
+    "unlock": "rm -rf npm-shrinkwrap.json",
     "start": "npm run build && serve ./dist",
     "dev": "cross-env NODE_ENV=development DEBUG=PLATO:* webpack-dev-server --progress",
     "e2e": "cross-env NODE_ENV=test DEBUG=PLATO:* node ./test/e2e/runner.js",
