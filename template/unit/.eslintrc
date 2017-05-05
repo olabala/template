@@ -6,9 +6,6 @@
   "globals": {
     "sinon": false,
     "assert": false,
-    "expect": false,
-    "triggerHTMLEvents": false,
-    "triggerMouseEvents": false,
-    "triggerTouchEvents": false
+    "expect": false
   }
 }

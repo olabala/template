@@ -21,44 +21,8 @@
     "author": {
       "type": "string",
       "message": "Author"
-    },
-    "mobile": {
-      "type": "confirm",
-      "message": "Is mobile app?",
-      "default": true
-    },
-    "offline": {
-      "type": "confirm",
-      "message": "Is offline app?",
-      "default": false
-    },
-    "i18n": {
-      "type": "confirm",
-      "message": "Use i18n?",
-      "default": true
-    },
-    "validator": {
-      "type": "confirm",
-      "message": "Use validator?",
-      "default": true
-    },
-    "persist": {
-      "type": "confirm",
-      "message": "Use persistence?",
-      "default": true
-    },
-    "core": {
-      "type": "confirm",
-      "message": "Examples for routes with authorization?",
-      "default": true
     }
   },
-  "filters": {
-    "src/{modules,static}/i18n/**/*": "i18n",
-    "src/modules/validator/**/*": "validator",
-    "src/modules/persist/**/*": "persist",
-    "src/modules/core/**/*": "core"
-  },
-  "skipInterpolation": "!{README.md,package.json,npm-shrinkwrap.json,**/*.js}",
+  "skipInterpolation": "!{README.md,package.json}",
   "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  npm run init\n  npm run dev\n\nDemostrations can be found at http://plato.crossjs.com/#/demo"
 }

@@ -2,47 +2,32 @@
   "name": "{{ name }}",
   "version": "{{ version }}",
   "description": "{{ description }}",
-  "author": "{{ author }}",
-  "private": true,
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "init": "npm install",
-    "lock": "npm shrinkwrap",
-    "unlock": "rm -rf npm-shrinkwrap.json",
-    "start": "npm run build && serve ./dist",
-    "mock": "cross-env NODE_ENV=development DEBUG=PLATO:* json-server ./mock/db.json -w -p 3001 -r ./mock/routes.json",
-    "dev": "cross-env NODE_ENV=development DEBUG=PLATO:* webpack-dev-server --progress",
-    "dev:mock": "concurrently -r -k \"npm run mock\" \"npm run dev\"",
-    "e2e": "cross-env NODE_ENV=test DEBUG=PLATO:* node ./test/e2e/runner.js",
-    "e2e:dev": "cross-env NODE_ENV=test DEBUG=PLATO:* nodemon ./test/e2e/runner.js",
     "unit": "cross-env NODE_ENV=test DEBUG=PLATO:* karma start ./test/unit/runner.js",
     "unit:dev": "npm run unit -- --watch",
     "lint": "eslint --max-warnings 10 .",
     "lint:fix": "npm run lint -- --fix",
-    "lint:css": "stylelint src/**/*.css",
-    "test": "npm run lint && npm run lint:css && npm run unit && npm run e2e",
-    "clean": "node ./cli/clean",
-    "compile": "cross-env NODE_ENV=production DEBUG=PLATO:* node ./cli/compile",
-    "build": "npm run test && npm run clean && npm run compile"
+    "test": "npm run lint && npm run unit"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/{{ author }}/{{ name }}.git"
+  },
+  "keywords": [
+    "{{ author }}",
+    "{{ name }}"
+  ],
+  "author": "{{ author }}",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/{{ author }}/{{ name }}/issues"
+  },
+  "homepage": "https://github.com/{{ author }}/{{ name }}",
   "dependencies": {
-    "core-js": "^2.4.1",
-    "nuo": "^1.0.0",
-    "platojs": "latest",
-    {{#i18n}}
-    "string-template": "^1.0.0",
-    {{/i18n}}
-    "vuex-actions": "^1.1.1",
-    {{#persist}}
-    "vuex-localstorage": "^1.0.0",
-    {{/persist}}
-    "whatwg-fetch": "^2.0.3"
+    "platojs": "latest"
   },
   "devDependencies": {
     "plato-dev-dependencies": "latest"
-  },
-  "engines": {
-    "node": ">=7.7.4",
-    "npm": ">=4.1.2"
   }
 }
