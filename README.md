@@ -1,17 +1,17 @@
-# Template
+# Library Template
 
-This is a project template for [vue-cli](https://github.com/vuejs/vue-cli).
+This is a library template for [vue-cli](https://github.com/vuejs/vue-cli).
 
 ## Usage
 
 ```bash
 $ npm install -g vue-cli
-$ vue init platojs/template <project-name>
+$ vue init platojs/template#library <library-name>
 ```
 
-## Live Example
+## Example
 
-[PLATO](https://github.com/platojs/plato).
+[request](https://github.com/platojs/request).
 
 ## License
 
