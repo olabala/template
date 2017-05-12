@@ -26,3 +26,7 @@ npm run build
 # serve dist, like production
 npm start
 ```
+
+## Guide
+
+Documentations can be found at http://platojs.crossjs.com/

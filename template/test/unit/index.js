@@ -6,9 +6,6 @@ localStorage.clear()
 
 chai.use(sinonChai)
 
-global.triggerHTMLEvents = triggerHTMLEvents
-global.triggerMouseEvents = triggerMouseEvents
-global.triggerTouchEvents = triggerTouchEvents
 global.assert = chai.assert
 global.expect = chai.expect
 

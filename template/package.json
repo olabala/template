@@ -32,7 +32,6 @@
     {{#i18n}}
     "string-template": "^1.0.0",
     {{/i18n}}
-    "vuex-actions": "^1.1.1",
     {{#persist}}
     "vuex-localstorage": "^1.0.0",
     {{/persist}}

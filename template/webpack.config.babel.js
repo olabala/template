@@ -46,19 +46,7 @@ const webpackConfig = {
     app: [
       // 加载 polyfills
       paths.src('polyfills/index.js'),
-      paths.src('index.js')],
-    plato: [
-      // from platojs
-      'vue',
-      'vue-router',
-      'vuex',
-      'vuex-router-sync',
-      // from local deps
-      {{#persist}}
-      'vuex-localstorage',
-      {{/persist}}
-      'vuex-actions'
-    ]
+      paths.src('index.js')]
   },
   output: {
     path: paths.dist(),
@@ -312,7 +300,12 @@ if (!__TEST__) {
       {{/mobile}}
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['plato']
+      name: 'plato',
+      minChunks: module => /node_modules[/\\]platojs/.test(module.resource)
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity
     })
   )
 }
