@@ -1,6 +1,5 @@
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
-import { triggerHTMLEvents, triggerMouseEvents, triggerTouchEvents } from './utils'
 
 localStorage.clear()
 
