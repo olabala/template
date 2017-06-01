@@ -15,6 +15,69 @@ const debug = require('debug')('PLATO:webpack')
 
 debug('Create configuration.')
 
+// see: https://github.com/ai/browserslist#queries
+{{#mobile}}
+const browsers = 'Android >= 4, iOS >= 7'
+{{else}}
+const browsers = 'IE >= 9, Chrome >= 50'
+{{/mobile}}
+
+const postcssOptions = {
+  plugins: [
+    require('postcss-import')({
+      path: paths.src('application/styles')
+    }),
+    require('postcss-url')({
+      basePath: paths.src('static')
+    }),
+    require('postcss-cssnext')({
+      browsers,
+      features: {
+        customProperties: {
+          variables: require(paths.src('application/styles/variables'))
+        },
+        // 禁用 autoprefixer，在 postcss-rtl 后单独引入
+        // 否则会跟 postcss-rtl 冲突
+        autoprefixer: false
+      }
+    }),
+    // 如果不需要 flexible，请移除
+    require('postcss-flexible')({
+      {{#mobile}}
+      {{else}}
+      desktop: true,
+      {{/mobile}}
+      remUnit: 75
+    }),
+    {{#i18n}}
+    // PostCSS plugin for RTL-optimizations
+    require('postcss-rtl')({
+      // Custom function for adding prefix to selector. Optional.
+      addPrefixToSelector (selector, prefix) {
+        if (/^html/.test(selector)) {
+          return selector.replace(/^html/, `html${prefix}`)
+        }
+        if (/:root/.test(selector)) {
+          return selector.replace(/:root/, `${prefix}:root`)
+        }
+        // compliant with postcss-flexible
+        if (/^\[data-dpr(="[1-3]")?]/.test(selector)) {
+          return `${prefix}${selector}`
+        }
+        return `${prefix} ${selector}`
+      }
+    }),
+    {{else}}
+    // 如果需要 postcss-rtl，请在此处定义
+    {{/i18n}}
+    require('autoprefixer')({
+      browsers
+    }),
+    require('postcss-browser-reporter')(),
+    require('postcss-reporter')()
+  ]
+}
+
 const webpackConfig = {
   target: 'web',
   resolve: {
@@ -39,6 +102,7 @@ const webpackConfig = {
     //   }
     // }],
     compress: true,
+    disableHostCheck: true,
     hot: true,
     noInfo: true
   },
@@ -73,68 +137,7 @@ const webpackConfig = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          postcss: pack => {
-            // see: https://github.com/ai/browserslist#queries
-            {{#mobile}}
-            const browsers = 'Android >= 4, iOS >= 7'
-            {{else}}
-            const browsers = 'IE >= 9, Chrome >= 50'
-            {{/mobile}}
-
-            return [
-              require('postcss-import')({
-                path: paths.src('application/styles')
-              }),
-              require('postcss-url')({
-                basePath: paths.src('static')
-              }),
-              require('postcss-cssnext')({
-                browsers,
-                features: {
-                  customProperties: {
-                    variables: require(paths.src('application/styles/variables'))
-                  },
-                  // 禁用 autoprefixer，在 postcss-rtl 后单独引入
-                  // 否则会跟 postcss-rtl 冲突
-                  autoprefixer: false
-                }
-              }),
-              // 如果不需要 flexible，请移除
-              require('postcss-flexible')({
-                {{#mobile}}
-                {{else}}
-                desktop: true,
-                {{/mobile}}
-                remUnit: 75
-              }),
-              {{#i18n}}
-              // PostCSS plugin for RTL-optimizations
-              require('postcss-rtl')({
-                // Custom function for adding prefix to selector. Optional.
-                addPrefixToSelector (selector, prefix) {
-                  if (/^html/.test(selector)) {
-                    return selector.replace(/^html/, `html${prefix}`)
-                  }
-                  if (/:root/.test(selector)) {
-                    return selector.replace(/:root/, `${prefix}:root`)
-                  }
-                  // compliant with postcss-flexible
-                  if (/^\[data-dpr(="[1-3]")?]/.test(selector)) {
-                    return `${prefix}${selector}`
-                  }
-                  return `${prefix} ${selector}`
-                }
-              }),
-              {{else}}
-              // 如果需要 postcss-rtl，请在此处定义
-              {{/i18n}}
-              require('autoprefixer')({
-                browsers
-              }),
-              require('postcss-browser-reporter')(),
-              require('postcss-reporter')()
-            ]
-          },
+          postcss: postcssOptions,
           autoprefixer: false,
           loaders: {
             js: 'babel-loader'
@@ -142,6 +145,11 @@ const webpackConfig = {
           // 必须为 true，否则 vue-loader@12.0.0 会导致 css 加载顺序混乱
           extractCSS: true
         }
+      },
+      {
+        test: /\.css$/,
+        loader: 'postcss-loader',
+        options: postcssOptions
       },
       {
         test: /\.js$/,
@@ -190,7 +198,10 @@ const webpackConfig = {
       ignore: ['README.md']
     }),
     // extract css into its own file
-    new ExtractTextPlugin('[name].[contenthash].css')
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash].css',
+      allChunks: true
+    })
   ]
 }
 
