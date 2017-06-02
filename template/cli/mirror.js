@@ -1,7 +1,7 @@
 const fs = require('fs')
 const resolve = require('path').resolve
 
-const registry = process.argv[3]
+const registry = process.argv[2]
 const re = /https?:\/\/registry\.[a-z.]+/g
 
 function replaceLock (cb) {
@@ -16,7 +16,7 @@ function replaceLock (cb) {
         if (err) {
           console.error(err)
         } else {
-          console.log(`registries in "npm-shrinkwrap.json" were replaced with "${registry}"`)
+          console.log(`registries in "npm-shrinkwrap.json" have been replaced with "${registry}"`)
           cb()
         }
       })
@@ -36,11 +36,15 @@ function replaceRc () {
         if (err) {
           console.error(err)
         } else {
-          console.log(`registries in ".npmrc" were replaced with "${registry}"`)
+          console.log(`registries in ".npmrc" have been replaced with "${registry}"`)
         }
       })
     }
   })
 }
 
-replaceLock(replaceRc)
+if (registry) {
+  replaceLock(replaceRc)
+} else {
+  console.error('registry is required')
+}
